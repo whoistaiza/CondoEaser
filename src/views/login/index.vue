@@ -1,10 +1,51 @@
 <template>
-  <div class="column q-gutter-md q-pa-md">
-    <q-input v-model="form.email" type="text" filled class="bg-grey" />
-    <q-input v-model="form.password" type="text" filled class="bg-grey" />
+  <div class="row justify-center items-center bg window-height">
+    <q-card class="card">
+      <div class="q-pa-md bg-orange-8 text-white text-h5 text-bold">Identifique-se</div>
+      <q-separator dark inset />
+
+      <q-card-section class="row">
+        <q-form
+          ref="formRef"
+          class="q-gutter-md col"
+        >
+          <q-input
+            v-model="form.email"
+            label="Email"
+            lazy-rules
+            class="q-mt-lg"
+          />
+
+          <q-input
+            v-model="form.password"
+            label="Senha"
+            lazy-rules
+            :type="passwordInputType"
+            class="q-mt-lg"
+          >
+            <template #append>
+              <q-icon
+                :name="showPasswordIcon"
+                class="cursor-pointer"
+                @click="isPassword = !isPassword"
+              />
+            </template>
+          </q-input>
+
+          <div class="row reverse q-mt-xl">
+            <q-btn
+              label="Entrar"
+              type="submit"
+              color="orange-8"
+              class="q-mt-xl"
+            />
+          </div>
+        </q-form>
+      </q-card-section>
+    </q-card>
   </div>
-  <q-btn @click="submit">{{ $t("action.submit.index") }}</q-btn>
 </template>
+
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 
@@ -15,15 +56,38 @@ export default defineComponent({
       email: "juliano@dev.com",
       password: "hashed_password",
     });
-    // INSERT INTO "users" ("email", "administrator", "email", "password", "cpf") VALUES ('Juliano', true, 'juliano@dev.com', 'hashed_password', '12345678901');
+
+    const isPassword = ref(true)
+
+    const passwordInputType = computed(() =>
+      isPassword.value ? 'password' : 'text'
+    )
+
+    const showPasswordIcon = computed(() =>
+      isPassword.value ? 'visibility_off' : 'visibility'
+    )
+
     function submit() {
       console.log(form);
     }
     return {
       form,
-
       submit,
+      passwordInputType,
+      showPasswordIcon,
+      isPassword
     };
   },
 });
 </script>
+
+<style scoped>
+.bg {
+  background-image: url(/img/condoeaser.png);
+}
+
+.card {
+  height: 25rem;
+  width: 40rem;
+}
+</style>
