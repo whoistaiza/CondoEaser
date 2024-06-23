@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-center items-center bg window-height">
     <q-card class="card">
-      <div class="q-pa-md bg-orange-8 text-white text-h5 text-bold">Identifique-se</div>
+      <div class="q-pa-md bg-primary text-white text-h5 text-bold">Identifique-se</div>
       <q-separator dark inset />
 
       <q-card-section class="row">
@@ -36,7 +36,7 @@
             <q-btn
               label="Entrar"
               type="submit"
-              color="orange-8"
+              color="primary"
               class="q-mt-xl"
             />
           </div>

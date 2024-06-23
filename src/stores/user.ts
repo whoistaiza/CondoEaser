@@ -1,54 +1,56 @@
-import { defineStore } from "pinia";
 
-import { type GitHubUser, getGithubProfile } from "../services/external";
-const id = "users";
-const useUsers = defineStore(id, {
-  state: () => {
-    const localData = localStorage.getItem(id);
-    if (localData !== "undefined" && localData) {
-      // console.log({ localData })
-      const data = JSON.parse(localData);
-      // console.log({ data })
-      return {
-        name: data.login,
-        profile: data,
-        // ...
-      };
+import { defineStore } from "pinia"; 
+  
+import { findIndex, isEmpty, isEqual } from "lodash-es"; 
+
+export interface Recado {
+  recado: string
+  data: string
+  usuario: Usuario
+}
+ 
+export interface Usuario {
+  id: number
+  nome: string
+  foto: string
+}
+
+export const useMainStore = defineStore("main", () => { 
+  const usuarios: Usuario[] = [
+    { 
+      id: 1,
+      nome: 'Taiza',
+      foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
+    },
+    { 
+      id: 2,
+      nome: 'Junior',
+      foto: 'https://cdn.quasar.dev/img/avatar2.jpg'
     }
-    return {
-      name: "",
-      profile: {},
-      // ...
-    };
-  },
-  getters: {
-    isValid: (state): boolean => !!state.name,
-  },
+  ]; 
 
-  actions: {
-    isSameName(name: string): boolean {
-      return this.name === name;
+  const recados: Recado[] = [
+    {
+      recado: 'LARARARARA',
+      data: '2024-06-23',
+      usuario: {
+        id: 1,
+        nome: 'Taiza',
+        foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
+      },
     },
-    async getGithubProfile(username: string): Promise<GitHubUser> {
-      console.log({ username });
-      const localData = localStorage.getItem(id);
-      console.log({ localData });
-      if (localData !== "undefined" && localData) {
-        console.log(JSON.parse(localData));
-        return JSON.parse(localData);
+    {
+      recado: 'thererere',
+      data: '2024-06-23',
+      usuario: {
+        id: 2,
+        nome: 'Junior',
+        foto: 'https://cdn.quasar.dev/img/avatar2.jpg'
       }
-      try {
-        this.profile = (await getGithubProfile(username)) as GitHubUser;
-        localStorage.setItem(id, JSON.stringify(this.profile));
-        console.log(`Welcome back ${this.profile.name}!`);
-        return this.profile;
-      } catch (error) {
-        console.log(error);
-        throw new Error("Failed to get GitHub profile"); // TODO: handle error
-      }
-    },
-  },
-  persist: true,
+    }
+]
+  return { 
+    usuarios,
+    recados
+  }; 
 });
-
-export const profileStore = useUsers();
