@@ -1,0 +1,40 @@
+<template>
+  <q-card class="text-h3 text-uppercase q-px-md">
+    <div class="text-white bg-orange">
+      {{ formattedMonth }}
+    </div>
+  </q-card>
+</template>
+
+<script setup lang="ts">
+import { countryCodes } from './lib'
+const props = defineProps({
+  selectDate: {
+    type: String,
+    default: ''
+  }
+})
+const formattedMonth = computed(() => {
+  const date = new Date(props.selectDate)
+  return monthFormatter().format(date) + ' ' + date.getFullYear()
+})
+const country = ref('BR')
+function monthFormatter(): Intl.DateTimeFormat {
+  try {
+    return new Intl.DateTimeFormat(locale.value || undefined, {
+      month: 'long',
+      timeZone: 'UTC'
+    })
+  } catch (e) {
+    console.error('Failed to create DateTimeFormat:', e)
+    return new Intl.DateTimeFormat('en-US', { month: 'long' })
+  }
+}
+const locale = computed(() => {
+  if (country.value) {
+    return countryCodes[country.value]
+  }
+  return 'pt-BR'
+})
+</script>
+
