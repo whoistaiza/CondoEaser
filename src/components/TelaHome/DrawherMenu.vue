@@ -1,10 +1,8 @@
 <template>
   <q-layout class="shadow-2 rounded-borders">
     <q-drawer
-      v-model="drawerLeft"
+      v-model="props.openList"
       show-if-above
-      :width="200"
-      :breakpoint="700"
       elevated
       class="bg-primary text-white"
     >
@@ -24,5 +22,10 @@
 
 <script setup lang="ts">
 import { routers } from './lib'
-const drawerLeft = ref(false)
+const props = defineProps({
+  openList: {
+    type: Boolean,
+    required: true
+  }
+})
 </script>
