@@ -1,3 +1,4 @@
 <template>
+  
   <CalendarSalao />
 </template>
