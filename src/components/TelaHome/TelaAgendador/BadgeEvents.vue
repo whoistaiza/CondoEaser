@@ -5,7 +5,7 @@
       :key="index"
       class="row items-center"
     >
-      {{ event.name }}
+      {{ event.name }} - {{ getEventTime(event.date) }}
     </div>
   </q-item>
 </template>
@@ -24,8 +24,16 @@ const props = defineProps({
 
 function getEventsByDate(date: string) {
   return props.events.filter((event) => {
-    const eventDate = new Date(event.date).toISOString().split('T')[0]
-    return eventDate === date
+    const eventDate = new Date(event.date)
+    eventDate.setUTCHours(eventDate.getUTCHours() - 3)
+    const adjustedEventDate = eventDate.toISOString().split('T')[0]
+    return adjustedEventDate === date
   })
+}
+
+function getEventTime(dateString: string) {
+  const eventDate = new Date(dateString)
+  eventDate.setUTCHours(eventDate.getUTCHours() - 3)
+  return eventDate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 }
 </script>
