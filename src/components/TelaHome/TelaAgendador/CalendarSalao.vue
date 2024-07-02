@@ -63,7 +63,6 @@ function handleDates(val: any, val2: any, val3?: any) {
     event.name = val3
   }
   arrayEvents.value.push({ ...event })  
-  console.log(arrayEvents.value)
 }
 </script>
 
