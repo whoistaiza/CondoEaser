@@ -2,6 +2,7 @@
   <div class="row justify-center items-center bg window-height">
     <q-card class="card">
       <div class="q-pa-md bg-primary text-white text-h5 text-bold">Identifique-se</div>
+      <div class="q-pa-md bg-primary text-white text-h5 text-bold">Identifique-se</div>
       <q-separator dark inset />
 
       <q-card-section class="row">
@@ -25,7 +26,12 @@
           </q-input>
 
           <div class="row reverse q-mt-xl">
-            <q-btn label="Entrar" type="submit" color="primary" class="q-mt-xl" />
+            <q-btn
+              label="Entrar"
+              type="submit"
+              color="primary"
+              class="q-mt-xl"
+            />
           </div>
         </q-form>
       </q-card-section>

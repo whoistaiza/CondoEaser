@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     FabButton: typeof import('./components/buttons/FabButton.vue')['default']
     FormRecados: typeof import('./components/mural-recados/FormRecados.vue')['default']
     HeaderHome: typeof import('./components/TelaHome/HeaderHome.vue')['default']
+    Index: typeof import('./components/mural-recados/Index.vue')['default']
     LoaderButton: typeof import('./components/buttons/LoaderButton.vue')['default']
     MakdownEditor: typeof import('./components/MakdownEditor.vue')['default']
     MuralRecados: typeof import('./components/mural-recados/MuralRecados.vue')['default']
