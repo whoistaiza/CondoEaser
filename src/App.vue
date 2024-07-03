@@ -12,7 +12,7 @@
       v-if="showTabHeader"
     >
       <q-scroll-area class="fit">
-        <q-item v-for="rout in routers" clickable @click="changeRout(rout.name)">
+        <q-item v-for="rout in routers" clickable @click="changeRout(rout.route)">
           <q-item-section avatar>
             <q-icon :name="rout.icon" color="white" />
           </q-item-section>
@@ -40,11 +40,11 @@ const showTabHeader = computed(() => {
   return !exceptionRoutes.some((route) => currentRoute.path.includes(route))
 })
 const routers = [
-  { icon: 'group', name: 'lista de moradores' },
-  { icon: 'location_on', name: 'agendador' },
-  { icon: 'calendar_view_month', name: 'mural de recados' },
-  { icon: 'paid', name: 'relatorio de gastos' },
-  { icon: 'edit', name: 'permissoes' }
+  { icon: 'group', name: 'lista de moradores', route: 'moradores' },
+  { icon: 'location_on', name: 'agendador', route: 'agendador' },
+  { icon: 'calendar_view_month', name: 'mural de recados', route: 'mural' },
+  { icon: 'paid', name: 'relatório de gastos', route: 'gastos' },
+  { icon: 'mdi-cog', name: 'permissões', route: 'permissoes' }
 ]
 function changeRout(rout: string) {
   router.push(`/${rout}`)

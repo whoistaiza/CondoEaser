@@ -29,6 +29,7 @@ declare module '@vue/runtime-core' {
     InputsOfAgendamento: typeof import('./components/TelaHome/TelaAgendador/AddAgendamento/InputsOfAgendamento.vue')['default']
     InputTime: typeof import('./components/TelaHome/TelaAgendador/AddAgendamento/InputTime.vue')['default']
     LoaderButton: typeof import('./components/buttons/LoaderButton.vue')['default']
+    Login: typeof import('./components/TelaLogin/Login.vue')['default']
     MakdownEditor: typeof import('./components/MakdownEditor.vue')['default']
     ModalAgendarAdd: typeof import('./components/TelaHome/TelaAgendador/AddAgendamento/ModalAgendarAdd.vue')['default']
     MonthNavigation: typeof import('./components/TelaHome/TelaAgendador/Month/MonthNavigation.vue')['default']
