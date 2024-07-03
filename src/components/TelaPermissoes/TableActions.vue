@@ -26,7 +26,6 @@ const editModal = ref(false)
 
 
 function editPermissoes(permissoes: Permissao[]) {
-  console.log({ permissoes, props: props.item.usuarioId})
   store.alteraPermissoesUsuario(permissoes, props.item.usuarioId)
   editModal.value = false
   notifyPositive("Permissões atualizadas com sucesso!")
