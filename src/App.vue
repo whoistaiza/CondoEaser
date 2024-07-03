@@ -1,10 +1,16 @@
 <template>
-  <q-toolbar class="text-primary bg-primary z-top">
+  <q-toolbar class="text-primary bg-primary z-top" v-if="showTabHeader">
     <q-btn flat round dense icon="menu" color="white" @click="openList = !openList" />
     <q-toolbar-title class="text-white"> Menu </q-toolbar-title>
   </q-toolbar>
   <q-layout class="q-py-md">
-    <q-drawer v-model="openList" show-if-above elevated class="bg-primary text-white">
+    <q-drawer
+      v-model="openList"
+      show-if-above
+      elevated
+      class="bg-primary text-white"
+      v-if="showTabHeader"
+    >
       <q-scroll-area class="fit">
         <q-item v-for="rout in routers" clickable @click="changeRout(rout.name)">
           <q-item-section avatar>
@@ -24,7 +30,15 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+const currentRoute = useRoute()
+
+const exceptionRoutes = ['/login']
+const router = useRouter()
+
+const showTabHeader = computed(() => {
+  return !exceptionRoutes.some((route) => currentRoute.path.includes(route))
+})
 const routers = [
   { icon: 'group', name: 'lista de moradores' },
   { icon: 'location_on', name: 'agendador' },
@@ -32,7 +46,6 @@ const routers = [
   { icon: 'paid', name: 'relatorio de gastos' },
   { icon: 'edit', name: 'permissoes' }
 ]
-const router = useRouter()
 function changeRout(rout: string) {
   router.push(`/${rout}`)
 }
