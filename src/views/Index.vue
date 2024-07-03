@@ -35,32 +35,18 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { reactive, ref, computed } from 'vue'
-
-const form = reactive({
-  email: 'juliano@dev.com',
-  password: 'hashed_password'
-})
-
-const isPassword = ref(true)
 const router = useRouter()
 
-const passwordInputType = computed(() => (isPassword.value ? 'password' : 'text'))
-
-const showPasswordIcon = computed(() => (isPassword.value ? 'visibility_off' : 'visibility'))
-
-function submit() {
-  router.push('/home')
-}
+onMounted(() => {
+  router.push('/login')
+})
 </script>
 
 <style scoped>
-.bg {
-  background-image: url('/img/condoeaser.png');
+.title {
+  will-change: filter;
 }
-
-.card {
-  height: 25rem;
-  width: 40rem;
+.title:hover {
+  filter: drop-shadow(0 0 2em #646cffff);
 }
 </style>

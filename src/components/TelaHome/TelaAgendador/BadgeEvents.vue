@@ -3,28 +3,32 @@
     <div
       v-for="(event, index) in getEventsByDate(props.data)"
       :key="index"
-      class="row items-center"
+      class="row items-center text-body1"
     >
-      {{ event.name }} - {{ getEventTime(event.date) }}
+      {{ event.name }} - {{ getEventTime(event.dateInit) }}
+      <q-btn
+        @click="eventStorage.removeEvent(event.id)"
+        icon="delete"
+        color="orange"
+        class="text-white"
+      />
     </div>
   </q-item>
 </template>
 
 <script setup lang="ts">
+import { useEventStore } from '../../../stores/event'
+const eventStorage = useEventStore()
 const props = defineProps({
   data: {
     type: String,
     default: ''
-  },
-  events: {
-    type: Array as () => any[],
-    default: () => []
   }
 })
 
 function getEventsByDate(date: string) {
-  return props.events.filter((event) => {
-    const eventDate = new Date(event.date)
+  return eventStorage.events.filter((event) => {
+    const eventDate = new Date(event.dateInit)
     eventDate.setUTCHours(eventDate.getUTCHours() - 3)
     const adjustedEventDate = eventDate.toISOString().split('T')[0]
     return adjustedEventDate === date
