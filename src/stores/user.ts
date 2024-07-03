@@ -1,56 +1,68 @@
+import { defineStore } from 'pinia'
 
-import { defineStore } from "pinia"; 
-  
-import { findIndex, isEmpty, isEqual } from "lodash-es"; 
+import { find, findIndex, isEmpty, isEqual, maxBy, remove } from 'lodash-es'
+import { DateTime } from 'luxon'
 
 export interface Recado {
+  id: number
   recado: string
   data: string
   usuario: Usuario
 }
- 
+
 export interface Usuario {
   id: number
   nome: string
   foto: string
 }
 
-export const useMainStore = defineStore("main", () => { 
+export const useMainStore = defineStore('main', () => {
+  const usuario: Usuario = {
+    id: 1,
+    nome: 'Taiza',
+    foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
+  }
+
   const usuarios: Usuario[] = [
-    { 
+    {
       id: 1,
       nome: 'Taiza',
       foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
     },
-    { 
+    {
       id: 2,
       nome: 'Junior',
       foto: 'https://cdn.quasar.dev/img/avatar2.jpg'
     }
-  ]; 
+  ]
 
-  const recados: Recado[] = [
-    {
-      recado: 'LARARARARA',
-      data: '2024-06-23',
-      usuario: {
-        id: 1,
-        nome: 'Taiza',
-        foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
-      },
-    },
-    {
-      recado: 'thererere',
-      data: '2024-06-23',
-      usuario: {
-        id: 2,
-        nome: 'Junior',
-        foto: 'https://cdn.quasar.dev/img/avatar2.jpg'
-      }
-    }
-]
-  return { 
+  const recados: Recado[] = JSON.parse(localStorage.getItem('recados') || '[]')
+
+  function saveToLocalStorage() {
+    localStorage.setItem('recados', JSON.stringify(recados))
+  }
+
+  function addRecado(recado: string) {
+    console.log({ recado })
+    const lastRecado = maxBy(recados, 'id')
+    const recadoId = lastRecado ? lastRecado.id + 1 : 1
+    const data = DateTime.now().toFormat('dd/MM/yyyy')
+    const usuarioCreated = find(usuarios, { id: usuario.id }) as unknown as Usuario
+
+    recados.push({ id: recadoId, data, usuario: usuarioCreated, recado })
+
+    saveToLocalStorage()
+  }
+
+  function removeRecado(id: number) {
+    remove(recados, { id })
+    saveToLocalStorage()
+  }
+  return {
     usuarios,
-    recados
-  }; 
-});
+    recados,
+    usuario,
+    addRecado,
+    removeRecado
+  }
+})

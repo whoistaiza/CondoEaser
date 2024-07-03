@@ -1,3 +1,4 @@
 <template>
-  <Home />
+  <HeaderHome />
+  <MuralRecados />
 </template>

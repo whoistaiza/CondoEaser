@@ -28,43 +28,38 @@
 <script lang="ts" setup>
 import { defineComponent, computed, defineEmits } from 'vue'
 import { useQuasar } from 'quasar'
-
 const props = defineProps({
-    title: {
-      type: String,
-      default: null,
-    },
-    minWidth: {
-      type: String,
-      default: '900px',
-    },
-    minHeight: {
-      type: String,
-      default: '',
-    },
-    maximized: {
-      type: Boolean,
-      default: false,
-    },
-    noPadding: {
-      type: Boolean,
-      default: false,
-    },
-    hideCloseButton: {
-      type: Boolean,
-      default: false,
-    },
+  title: {
+    type: String,
+    default: null
+  },
+  minWidth: {
+    type: String,
+    default: '900px'
+  },
+  minHeight: {
+    type: String,
+    default: ''
+  },
+  maximized: {
+    type: Boolean,
+    default: false
+  },
+  noPadding: {
+    type: Boolean,
+    default: false
+  },
+  hideCloseButton: {
+    type: Boolean,
+    default: false
+  }
 })
-
-const emits = defineEmits(['close']);
-
+const emits = defineEmits(['close'])
 const $q = useQuasar()
-
 const cardSize = computed(() => {
   if ($q.screen.lt.md) {
     return 'min-width: 100% !important;'
   }
-
   return `
     min-height: ${props.minHeight} !important;
     min-width: ${props.minWidth} !important;

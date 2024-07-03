@@ -13,7 +13,6 @@
 
 <script lang="ts" setup>
 import { defineComponent } from 'vue'
-
 const props = defineProps({
   titleAlign: {
     type: String,
@@ -30,7 +29,6 @@ const props = defineProps({
 .content {
   border-radius: 5px;
 }
-
 .content-title {
   font-size: 0.95rem;
   border-radius: 0.75rem 0.75rem 0 0;

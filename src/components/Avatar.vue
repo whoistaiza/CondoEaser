@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 export default defineComponent({
-  name: "Avatar",
+  name: 'Avatar',
   setup() {
     return {
-      authorName,
-    };
-  },
-});
+      authorName
+    }
+  }
+})
 </script>
 
 <style scoped>

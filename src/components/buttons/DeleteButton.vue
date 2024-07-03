@@ -1,17 +1,15 @@
 <script setup lang="ts">
-const isDeleting = ref(false);
+const isDeleting = ref(false)
 
 const handleClick = () => {
-  isDeleting.value = true;
+  isDeleting.value = true
   // do something async
   setTimeout(() => {
-    isDeleting.value = false;
-  }, 2500);
-};
-const btnClass = computed(() => (isDeleting.value ? "deleting" : ""));
-const label = computed(() =>
-  isDeleting.value ? "action.delete.ing" : "action.delete.index"
-);
+    isDeleting.value = false
+  }, 2500)
+}
+const btnClass = computed(() => (isDeleting.value ? 'deleting' : ''))
+const label = computed(() => (isDeleting.value ? 'action.delete.ing' : 'action.delete.index'))
 </script>
 <template>
   <button @click="handleClick" :class="btnClass" :disabled="isDeleting">
@@ -127,7 +125,7 @@ button {
 
 .shredded::before,
 .shredded::after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 1;
   top: 0;

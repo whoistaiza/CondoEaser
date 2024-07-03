@@ -1,37 +1,37 @@
 export default {
   submit: {
-    index: "Enviar",
-    ing: "Enviando",
-    ed: "Enviado",
+    index: 'Enviar',
+    ing: 'Enviando',
+    ed: 'Enviado'
   },
   cancel: {
-    index: "Cancelar",
-    ing: "Cancelando",
-    ed: "Cancelado",
+    index: 'Cancelar',
+    ing: 'Cancelando',
+    ed: 'Cancelado'
   },
   reset: {
-    index: "Reiniciar",
-    ing: "Reiniciando",
-    ed: "Reiniciado",
+    index: 'Reiniciar',
+    ing: 'Reiniciando',
+    ed: 'Reiniciado'
   },
   delete: {
-    index: "Eliminar",
-    ing: "Eliminando",
-    ed: "Eliminado",
+    index: 'Eliminar',
+    ing: 'Eliminando',
+    ed: 'Eliminado'
   },
   update: {
-    index: "Atualizar",
-    ing: "Atualizando",
-    ed: "Atualizado",
+    index: 'Atualizar',
+    ing: 'Atualizando',
+    ed: 'Atualizado'
   },
   create: {
-    index: "Criar",
-    ing: "Criando",
-    ed: "Criado",
+    index: 'Criar',
+    ing: 'Criando',
+    ed: 'Criado'
   },
   buy: {
-    index: "Comprar",
-    ing: "Comprando",
-    ed: "Comprado",
-  },
-};
+    index: 'Comprar',
+    ing: 'Comprando',
+    ed: 'Comprado'
+  }
+}
