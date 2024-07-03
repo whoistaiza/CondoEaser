@@ -1,3 +1,3 @@
 <template>
-  <CalendarSalao />
+  <MuralRecados />
 </template>

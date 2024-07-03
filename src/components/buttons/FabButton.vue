@@ -17,8 +17,8 @@
   </div>
 </template>
 <script setup lang="ts">
-const isOpen = ref(false);
-const openClass = computed(() => (isOpen.value ? "open" : ""));
+const isOpen = ref(false)
+const openClass = computed(() => (isOpen.value ? 'open' : ''))
 </script>
 <style scoped>
 .fab {

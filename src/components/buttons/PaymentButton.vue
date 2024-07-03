@@ -9,26 +9,22 @@
 </template>
 
 <script setup lang="ts">
-const isPaying = ref(false);
-const isPaid = ref(false);
+const isPaying = ref(false)
+const isPaid = ref(false)
 
 const handleClick = () => {
-  isPaying.value = true;
+  isPaying.value = true
   setTimeout(() => {
-    isPaying.value = false;
-    isPaid.value = true;
+    isPaying.value = false
+    isPaid.value = true
     setTimeout(() => {
-      isPaid.value = false;
-    }, 2000);
-  }, 2000);
-};
+      isPaid.value = false
+    }, 2000)
+  }, 2000)
+}
 const label = computed(() =>
-  isPaying.value
-    ? "action.buy.ing"
-    : isPaid.value
-    ? "action.buy.ed"
-    : "action.buy.index"
-);
+  isPaying.value ? 'action.buy.ing' : isPaid.value ? 'action.buy.ed' : 'action.buy.index'
+)
 </script>
 <style scoped>
 button {
@@ -99,7 +95,7 @@ button .icon {
 
 button .icon::before,
 button .icon::after {
-  content: "";
+  content: '';
   display: inherit;
   position: absolute;
   left: 0;

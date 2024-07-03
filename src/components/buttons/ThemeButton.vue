@@ -7,7 +7,7 @@
 <script setup lang="ts">
 // isDark
 function run() {
-  toggleDark();
-  console.log("rodou");
+  toggleDark()
+  console.log('rodou')
 }
 </script>

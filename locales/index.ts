@@ -1,9 +1,9 @@
-import br from "./br";
-import en from "./en";
+import br from './br'
+import en from './en'
 
 export default {
   br,
-  en,
+  en
   // es: {
   //   home: "Casa",
   //   about: "Sobre",
@@ -20,4 +20,4 @@ export default {
   //   home: "Дом",
   //   about: "на",
   // },
-};
+}

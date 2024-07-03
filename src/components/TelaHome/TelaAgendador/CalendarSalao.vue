@@ -1,36 +1,55 @@
 <template>
-  <MontVisualization :select-date="selectedDate" />
-  <MonthNavigation @today="onToday" @prev="onPrev" @next="onNext" />
-  <div class="row justify-center font-custom">
-    <div class="text-h5 calendar-size text-uppercase">
-      <q-btn label="Agendar Evento" text-color="white" color="orange" @click="showCard = true" />
-      <ModalAgendarAdd :show-card="showCard" @close="showCard = false" @salva-agend="handleDates" />
-      <q-calendar-month
-        ref="calendar"
-        v-model="selectedDate"
-        locale="pt-br"
-        :day-min-height="100"
-        class="cursor-pointer"
-      >
-        <template #day="{ scope: { timestamp } }">
-          <BadgeEvents :data="timestamp.date" :events="arrayEvents" />
-        </template>
-      </q-calendar-month>
-    </div>
+  <div class="q-ma-md">
+    <DrawherMenu :open-list="true">
+      <ContentSection title-align="center">
+        <template #title>{{ formattedMonth }} </template>
+        <MonthNavigation @today="onToday" @prev="onPrev" @next="onNext" />
+        <div class="row justify-center font-custom">
+          <div class="text-h5 calendar-size text-uppercase">
+            <q-btn
+              label="Agendar Evento"
+              text-color="white"
+              color="orange"
+              @click="showCard = true"
+            />
+            <ModalAgendarAdd
+              :show-card="showCard"
+              @close="showCard = false"
+              @salva-agend="handleDates"
+            />
+            <q-calendar-month
+              ref="calendar"
+              v-model="selectedDate"
+              locale="pt-br"
+              :day-min-height="100"
+              class="cursor-pointer"
+            >
+              <template #day="{ scope: { timestamp } }">
+                <BadgeEvents :data="timestamp.date" />
+              </template>
+            </q-calendar-month>
+          </div>
+        </div>
+      </ContentSection>
+    </DrawherMenu>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, getCurrentInstance } from 'vue'
+import { getCurrentInstance } from 'vue'
 import { QCalendarMonth, today } from '@quasar/quasar-ui-qcalendar/'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
+import { useEventStore } from '../../../stores/event'
+import { countryCodes } from '../lib'
+import { Ref } from 'vue'
 
+const eventStorage = useEventStore()
 const selectedDate = ref(today())
 const instance = getCurrentInstance()
 const showCard = ref(false)
-const arrayEvents = ref([])  
+const arrayEvents: Ref<{ date: string, date1: string, name: string }[]> = ref([])
 
 const event = reactive({
   date: '',
@@ -40,19 +59,19 @@ const event = reactive({
 
 function onToday() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).moveToToday()
+    ;(instance.refs.calendar as QCalendarMonth).moveToToday()
   }
 }
 
 function onPrev() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).prev()
+    ;(instance.refs.calendar as QCalendarMonth).prev()
   }
 }
 
 function onNext() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).next()
+    ;(instance.refs.calendar as QCalendarMonth).next()
   }
 }
 
@@ -62,7 +81,7 @@ function handleDates(val: any, val2: any, val3?: any) {
   if (val3 !== undefined) {
     event.name = val3
   }
-  arrayEvents.value.push({ ...event })  
+  arrayEvents.value.push({ ...event })
 }
 </script>
 

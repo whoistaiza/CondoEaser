@@ -12,37 +12,37 @@
   </div>
 </template>
 <script setup lang="ts">
-const isOpen = ref(false);
-const dropClass = computed(() => (isOpen.value ? "open" : ""));
-const menuIcon = computed(() => (isOpen.value ? "close" : "expand_more"));
+const isOpen = ref(false)
+const dropClass = computed(() => (isOpen.value ? 'open' : ''))
+const menuIcon = computed(() => (isOpen.value ? 'close' : 'expand_more'))
 
 function toggleDropDown() {
-  isOpen.value = !isOpen.value;
+  isOpen.value = !isOpen.value
 }
 function handleClick() {
-  toggleDropDown();
+  toggleDropDown()
 }
 
 const closeDropdown = () => {
   if (isOpen.value) {
-    isOpen.value = false;
+    isOpen.value = false
   }
-};
+}
 
 const menu = [
   {
-    name: "text.profile",
-    icon: "account_circle",
+    name: 'text.profile',
+    icon: 'account_circle'
   },
   {
-    name: "text.settings",
-    icon: "settings",
-  },
+    name: 'text.settings',
+    icon: 'settings'
+  }
   // {
   //   name: "Logout",
   //   icon: "logout",
   // },
-];
+]
 </script>
 <style scoped>
 .dropdown-button-1 {

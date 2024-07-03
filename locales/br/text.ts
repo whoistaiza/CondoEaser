@@ -1,5 +1,5 @@
 export default {
-  profile: "Perfil",
-  title: "Título",
-  settings: "Configurações",
-};
+  profile: 'Perfil',
+  title: 'Título',
+  settings: 'Configurações'
+}
