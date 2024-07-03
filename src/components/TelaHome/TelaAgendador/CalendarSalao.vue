@@ -43,11 +43,19 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
 import { useEventStore } from '../../../stores/event'
 import { countryCodes } from '../lib'
+import { Ref } from 'vue'
 
 const eventStorage = useEventStore()
 const selectedDate = ref(today())
 const instance = getCurrentInstance()
 const showCard = ref(false)
+const arrayEvents: Ref<{ date: string, date1: string, name: string }[]> = ref([])
+
+const event = reactive({
+  date: '',
+  date1: '',
+  name: ''
+})
 
 function onToday() {
   if (instance && instance.refs && instance.refs.calendar) {
@@ -68,33 +76,13 @@ function onNext() {
 }
 
 function handleDates(val: any, val2: any, val3?: any) {
-  eventStorage.addEvent(val, val2, val3)
-  notifyPositive('Agendado com sucesso!')
-  return (showCard.value = false)
-}
-
-const formattedMonth = computed(() => {
-  const date = new Date(selectedDate.value)
-  return monthFormatter().format(date) + ' ' + date.getFullYear()
-})
-const country = ref('BR')
-function monthFormatter(): Intl.DateTimeFormat {
-  try {
-    return new Intl.DateTimeFormat(locale.value || undefined, {
-      month: 'long',
-      timeZone: 'UTC'
-    })
-  } catch (e) {
-    console.error('Failed to create DateTimeFormat:', e)
-    return new Intl.DateTimeFormat('en-US', { month: 'long' })
+  event.date = val
+  event.date1 = val2
+  if (val3 !== undefined) {
+    event.name = val3
   }
+  arrayEvents.value.push({ ...event })
 }
-const locale = computed(() => {
-  if (country.value) {
-    return countryCodes[country.value]
-  }
-  return 'pt-BR'
-})
 </script>
 
 <style scoped>
