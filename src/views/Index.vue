@@ -1,20 +1,12 @@
 <template>
   <div class="row justify-center items-center bg window-height">
     <q-card class="card">
-      <div class="q-pa-md bg-orange-8 text-white text-h5 text-bold">Identifique-se</div>
+      <div class="q-pa-md bg-primary text-white text-h5 text-bold">Identifique-se</div>
       <q-separator dark inset />
 
       <q-card-section class="row">
-        <q-form
-          ref="formRef"
-          class="q-gutter-md col"
-        >
-          <q-input
-            v-model="form.email"
-            label="Email"
-            lazy-rules
-            class="q-mt-lg"
-          />
+        <q-form ref="formRef" class="q-gutter-md col">
+          <q-input v-model="form.email" label="Email" lazy-rules class="q-mt-lg" />
 
           <q-input
             v-model="form.password"
@@ -33,12 +25,7 @@
           </q-input>
 
           <div class="row reverse q-mt-xl">
-            <q-btn
-              label="Entrar"
-              type="submit"
-              color="orange-8"
-              class="q-mt-xl"
-            />
+            <q-btn label="Entrar" type="submit" color="primary" class="q-mt-xl" />
           </div>
         </q-form>
       </q-card-section>
@@ -47,28 +34,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive } from 'vue'
 
 export default defineComponent({
-  name: "LoginPage",
+  name: 'LoginPage',
   setup() {
     const form = reactive({
-      email: "juliano@dev.com",
-      password: "hashed_password",
-    });
+      email: 'juliano@dev.com',
+      password: 'hashed_password'
+    })
 
     const isPassword = ref(true)
 
-    const passwordInputType = computed(() =>
-      isPassword.value ? 'password' : 'text'
-    )
+    const passwordInputType = computed(() => (isPassword.value ? 'password' : 'text'))
 
-    const showPasswordIcon = computed(() =>
-      isPassword.value ? 'visibility_off' : 'visibility'
-    )
+    const showPasswordIcon = computed(() => (isPassword.value ? 'visibility_off' : 'visibility'))
 
     function submit() {
-      console.log(form);
+      console.log(form)
     }
     return {
       form,
@@ -76,9 +59,9 @@ export default defineComponent({
       passwordInputType,
       showPasswordIcon,
       isPassword
-    };
-  },
-});
+    }
+  }
+})
 </script>
 
 <style scoped>

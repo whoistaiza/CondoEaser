@@ -1,6 +1,6 @@
-import { MaybeRef } from "@vueuse/core";
-import { DocumentNode, TypedQueryDocumentNode } from "graphql";
-import { useQuery, useMutation } from "villus";
+import { MaybeRef } from '@vueuse/core'
+import { DocumentNode, TypedQueryDocumentNode } from 'graphql'
+import { useQuery, useMutation } from 'villus'
 
 export async function runQuery<Output>(
   query: MaybeRef<
@@ -12,12 +12,12 @@ export async function runQuery<Output>(
 ): Promise<Output> {
   const { data } = (await useQuery({
     query,
-    variables,
+    variables
   }).execute()) as {
-    data: Output;
-  };
+    data: Output
+  }
 
-  return data;
+  return data
 }
 
 export async function runMutation(
@@ -25,7 +25,7 @@ export async function runMutation(
   variables: object
 ): Promise<Record<string, Record<string, string>>> {
   const { data } = (await useMutation(query).execute(variables)) as {
-    data: Record<string, Record<string, string>>;
-  };
-  return data;
+    data: Record<string, Record<string, string>>
+  }
+  return data
 }

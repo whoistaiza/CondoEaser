@@ -1,26 +1,20 @@
 <script setup lang="ts">
-const isSending = ref(false);
-const isSent = ref(false);
-const btnClass = computed(() =>
-  isSending.value || isSent.value ? "sending" : ""
-);
-const icon = computed(() => (isSent.value ? "check" : "send"));
+const isSending = ref(false)
+const isSent = ref(false)
+const btnClass = computed(() => (isSending.value || isSent.value ? 'sending' : ''))
+const icon = computed(() => (isSent.value ? 'check' : 'send'))
 const handleClick = () => {
-  isSending.value = true;
+  isSending.value = true
   setTimeout(() => {
-    isSending.value = false;
-    isSent.value = true;
-    setTimeout(() => (isSent.value = false), 2500);
-  }, 2000);
-};
+    isSending.value = false
+    isSent.value = true
+    setTimeout(() => (isSent.value = false), 2500)
+  }, 2000)
+}
 
 const label = computed(() =>
-  isSending.value
-    ? "action.submit.ing"
-    : isSent.value
-    ? "action.submit.ed"
-    : "action.submit.index"
-);
+  isSending.value ? 'action.submit.ing' : isSent.value ? 'action.submit.ed' : 'action.submit.index'
+)
 </script>
 <template>
   <button @click="handleClick" :class="btnClass">

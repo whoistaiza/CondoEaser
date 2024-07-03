@@ -1,54 +1,68 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
-import { type GitHubUser, getGithubProfile } from "../services/external";
-const id = "users";
-const useUsers = defineStore(id, {
-  state: () => {
-    const localData = localStorage.getItem(id);
-    if (localData !== "undefined" && localData) {
-      // console.log({ localData })
-      const data = JSON.parse(localData);
-      // console.log({ data })
-      return {
-        name: data.login,
-        profile: data,
-        // ...
-      };
+import { find, findIndex, isEmpty, isEqual, maxBy, remove } from 'lodash-es'
+import { DateTime } from 'luxon'
+
+export interface Recado {
+  id: number
+  recado: string
+  data: string
+  usuario: Usuario
+}
+
+export interface Usuario {
+  id: number
+  nome: string
+  foto: string
+}
+
+export const useMainStore = defineStore('main', () => {
+  const usuario: Usuario = {
+    id: 1,
+    nome: 'Taiza',
+    foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
+  }
+
+  const usuarios: Usuario[] = [
+    {
+      id: 1,
+      nome: 'Taiza',
+      foto: 'https://cdn.quasar.dev/img/avatar1.jpg'
+    },
+    {
+      id: 2,
+      nome: 'Junior',
+      foto: 'https://cdn.quasar.dev/img/avatar2.jpg'
     }
-    return {
-      name: "",
-      profile: {},
-      // ...
-    };
-  },
-  getters: {
-    isValid: (state): boolean => !!state.name,
-  },
+  ]
 
-  actions: {
-    isSameName(name: string): boolean {
-      return this.name === name;
-    },
-    async getGithubProfile(username: string): Promise<GitHubUser> {
-      console.log({ username });
-      const localData = localStorage.getItem(id);
-      console.log({ localData });
-      if (localData !== "undefined" && localData) {
-        console.log(JSON.parse(localData));
-        return JSON.parse(localData);
-      }
-      try {
-        this.profile = (await getGithubProfile(username)) as GitHubUser;
-        localStorage.setItem(id, JSON.stringify(this.profile));
-        console.log(`Welcome back ${this.profile.name}!`);
-        return this.profile;
-      } catch (error) {
-        console.log(error);
-        throw new Error("Failed to get GitHub profile"); // TODO: handle error
-      }
-    },
-  },
-  persist: true,
-});
+  const recados: Recado[] = JSON.parse(localStorage.getItem('recados') || '[]')
 
-export const profileStore = useUsers();
+  function saveToLocalStorage() {
+    localStorage.setItem('recados', JSON.stringify(recados))
+  }
+
+  function addRecado(recado: string) {
+    console.log({ recado })
+    const lastRecado = maxBy(recados, 'id')
+    const recadoId = lastRecado ? lastRecado.id + 1 : 1
+    const data = DateTime.now().toFormat('dd/MM/yyyy')
+    const usuarioCreated = find(usuarios, { id: usuario.id }) as unknown as Usuario
+
+    recados.push({ id: recadoId, data, usuario: usuarioCreated, recado })
+
+    saveToLocalStorage()
+  }
+
+  function removeRecado(id: number) {
+    remove(recados, { id })
+    saveToLocalStorage()
+  }
+  return {
+    usuarios,
+    recados,
+    usuario,
+    addRecado,
+    removeRecado
+  }
+})

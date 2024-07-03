@@ -1,3 +1,3 @@
 export default {
-  create: "Adicione uma ou mais tags",
-};
+  create: 'Adicione uma ou mais tags'
+}

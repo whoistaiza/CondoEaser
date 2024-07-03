@@ -5,14 +5,14 @@
   </button>
 </template>
 <script setup lang="ts">
-const isLoading = ref(false);
-const classBtn = computed(() => (isLoading.value ? "loading" : ""));
+const isLoading = ref(false)
+const classBtn = computed(() => (isLoading.value ? 'loading' : ''))
 
 function handleClick() {
-  isLoading.value = true;
+  isLoading.value = true
   setTimeout(() => {
-    isLoading.value = false;
-  }, 4000);
+    isLoading.value = false
+  }, 4000)
 }
 </script>
 <style scoped>
