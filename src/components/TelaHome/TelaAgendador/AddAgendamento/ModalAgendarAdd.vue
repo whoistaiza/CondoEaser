@@ -46,5 +46,6 @@ function handleDates(val: string, val2: string) {
 
 function addEvent() {
   emits('salvaAgend', date, date1, name)
+  card.value = false
 }
 </script>

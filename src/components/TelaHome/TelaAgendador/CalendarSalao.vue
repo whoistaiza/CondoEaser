@@ -13,7 +13,7 @@
         class="cursor-pointer"
       >
         <template #day="{ scope: { timestamp } }">
-          <BadgeEvents :data="timestamp.date" :events="arrayEvents" />
+          <BadgeEvents :data="timestamp.date" />
         </template>
       </q-calendar-month>
     </div>
@@ -21,48 +21,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, getCurrentInstance } from 'vue'
+import { getCurrentInstance } from 'vue'
 import { QCalendarMonth, today } from '@quasar/quasar-ui-qcalendar/'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
-
+import { useEventStore } from '../../../stores/event'
+const eventStorage = useEventStore()
 const selectedDate = ref(today())
 const instance = getCurrentInstance()
 const showCard = ref(false)
-const arrayEvents = ref([])  
-
-const event = reactive({
-  date: '',
-  date1: '',
-  name: ''
-})
 
 function onToday() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).moveToToday()
+    ;(instance.refs.calendar as QCalendarMonth).moveToToday()
   }
 }
 
 function onPrev() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).prev()
+    ;(instance.refs.calendar as QCalendarMonth).prev()
   }
 }
 
 function onNext() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).next()
+    ;(instance.refs.calendar as QCalendarMonth).next()
   }
 }
 
 function handleDates(val: any, val2: any, val3?: any) {
-  event.date = val
-  event.date1 = val2
-  if (val3 !== undefined) {
-    event.name = val3
-  }
-  arrayEvents.value.push({ ...event })  
+  eventStorage.addEvent(val, val2, val3)
+  notifyPositive('Agendado com sucesso!')
+  return (showCard.value = false)
 }
 </script>
 
