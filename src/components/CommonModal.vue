@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, computed, defineEmits } from 'vue'
+import { computed, defineEmits } from 'vue'
 import { useQuasar } from 'quasar'
 const props = defineProps({
   title: {

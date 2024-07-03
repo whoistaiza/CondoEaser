@@ -30,7 +30,7 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
 const selectedDate = ref(today())
 const instance = getCurrentInstance()
 const showCard = ref(false)
-const arrayEvents = ref([])  
+const arrayEvents = ref([])
 
 const event = reactive({
   date: '',
@@ -40,19 +40,19 @@ const event = reactive({
 
 function onToday() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).moveToToday()
+    ;(instance.refs.calendar as QCalendarMonth).moveToToday()
   }
 }
 
 function onPrev() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).prev()
+    ;(instance.refs.calendar as QCalendarMonth).prev()
   }
 }
 
 function onNext() {
   if (instance && instance.refs && instance.refs.calendar) {
-    (instance.refs.calendar as QCalendarMonth).next()
+    ;(instance.refs.calendar as QCalendarMonth).next()
   }
 }
 
@@ -62,7 +62,7 @@ function handleDates(val: any, val2: any, val3?: any) {
   if (val3 !== undefined) {
     event.name = val3
   }
-  arrayEvents.value.push({ ...event })  
+  arrayEvents.value.push({ ...event })
 }
 </script>
 

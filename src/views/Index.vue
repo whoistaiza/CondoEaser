@@ -25,7 +25,7 @@
           </q-input>
 
           <div class="row reverse q-mt-xl">
-            <q-btn label="Entrar"  color="primary" class="q-mt-xl" @click="submit" />
+            <q-btn label="Entrar" color="primary" class="q-mt-xl" @click="submit" />
           </div>
         </q-form>
       </q-card-section>

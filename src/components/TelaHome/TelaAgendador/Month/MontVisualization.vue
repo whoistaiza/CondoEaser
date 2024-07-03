@@ -37,4 +37,3 @@ const locale = computed(() => {
   return 'pt-BR'
 })
 </script>
-

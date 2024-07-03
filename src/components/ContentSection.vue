@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent } from 'vue'
 const props = defineProps({
   titleAlign: {
     type: String,
