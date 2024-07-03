@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import { filter, find, findIndex, isEmpty, isEqual, maxBy, remove } from 'lodash-es'
+import { find, maxBy, remove } from 'lodash-es'
 import { DateTime } from 'luxon'
 
 export interface Permissao {
@@ -118,7 +118,6 @@ export const useMainStore = defineStore('main', () => {
   }
 
   function saveUsuariosPermissoesToLocalStorage() {
-    console.log({ usuariosPermissoes })
     localStorage.setItem('usuariosPermissoes', JSON.stringify(usuariosPermissoes))
   }
 

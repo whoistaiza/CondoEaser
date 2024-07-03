@@ -32,7 +32,6 @@ function buildItems(): { nome: string, permissoes: Permissao[], usuarioId: numbe
 const items = ref(buildItems())
 
 watch(store.usuariosPermissoes, (_) => {
-  console.log({ store: store.usuariosPermissoes })
   items.value = buildItems()
 }, { deep: true })
 
