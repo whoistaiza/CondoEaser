@@ -64,13 +64,5 @@ function logout() {
     window.location.reload()
   }, 200)
 }
-
-watchEffect(() => {
-  if(route.path === '/') {
-    router.push('/login')
-  }
-})
-
-
 const openList = ref(false)
 </script>
