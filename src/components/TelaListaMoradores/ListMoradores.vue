@@ -1,52 +1,79 @@
 <template>
-    <div class="q-pa-md">
-      <q-list bordered>
-        <q-item v-for="morador in moradorStore.moradores" :key="morador.name" clickable>
-          <q-item-section>
-            <q-item-label>{{ morador.name }}</q-item-label>
-            <q-item-label caption>{{ morador.permissions.join(', ') }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
-  </template>
+  <ContentSection title-align="center">
+    <template #title>Lista de Moradores</template>
+    <SimpleTable :columns="columns" :rows="rows"/>
+  </ContentSection>
+</template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useMoradoresStore } from '../../stores/moradores'
+import { QTableColumn } from 'quasar'
+import { ComputedRef } from 'vue'
 
 const moradorStore = useMoradoresStore()
 
-const rows = ref([
-  {
-    name: 'João Silva',
-    permissions: ['Acesso à Piscina', 'Acesso ao Salão de Festas']
-  },
-  {
-    name: 'Maria Souza',
-    permissions: ['Acesso à Academia']
-  },
-  {
-    name: 'Carlos Pereira',
-    permissions: ['Acesso à Piscina', 'Acesso à Academia']
-  },
-  {
-    name: 'Ana Costa',
-    permissions: ['Acesso ao Salão de Festas']
-  },
-  {
-    name: 'Lucas Oliveira',
-    permissions: ['Acesso à Piscina', 'Acesso ao Salão de Festas', 'Acesso à Academia']
-  }
-])
-
-onMounted(() => {
-  moradorStore.addMoradores(rows.value)
+const columns: ComputedRef<QTableColumn[]> = computed(() => {
+  return [
+    {
+      label: 'Nome',
+      field: 'nome',
+      name: 'nome',
+      align: 'center',
+      sortable: true
+    },
+    {
+      label: 'Bloco',
+      field: 'bloco',
+      name: 'bloco',
+      align: 'center',
+      sortable: true
+    },
+    {
+      label: 'Apartamento',
+      field: 'apartamento',
+      name: 'apartamento',
+      align: 'center',
+      sortable: true
+    },
+    {
+      label: 'Contato',
+      field: 'contato',
+      name: 'contato',
+      align: 'center',
+      sortable: true
+    },
+  ]
 })
-</script>
 
-<style scoped>
-.q-pa-md {
-  padding: 16px;
-}
-</style>
+const rows = [
+  {
+    nome: 'Taiza',
+    bloco: 'A',
+    apartamento: '400',
+    contato: 'taiza@email.com'
+  },
+  {
+    nome: 'Francis',
+    bloco: 'A',
+    apartamento: '403',
+    contato: 'francis@email.com'
+  },
+  {
+    nome: 'Junior',
+    bloco: 'B',
+    apartamento: '500',
+    contato: 'junior@email.com'
+  },
+  {
+    nome: 'André',
+    bloco: 'C',
+    apartamento: '601',
+    contato: 'andre@email.com'
+  }
+]
+
+// onMounted(() => {
+//   moradorStore.addMoradores(rows.value)
+// })
+</script>

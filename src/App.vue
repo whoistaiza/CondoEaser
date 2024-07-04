@@ -47,7 +47,7 @@ const showTabHeader = computed(() => {
   return !exceptionRoutes.some((route) => currentRoute.path.includes(route))
 })
 const routers = [
-  { icon: 'group', name: 'lista de moradores', route: 'listademoradores' },
+  { icon: 'group', name: 'lista de moradores', route: 'moradores' },
   { icon: 'location_on', name: 'agendador', route: 'agendador' },
   { icon: 'calendar_view_month', name: 'mural de recados', route: 'mural' },
   { icon: 'paid', name: 'relatório de gastos', route: 'gastos' },
