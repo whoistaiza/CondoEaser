@@ -6,7 +6,7 @@
       <q-tooltip>Sair</q-tooltip>
     </q-btn>
   </q-toolbar>
-  <q-layout class="q-pb-md">
+  <q-layout class="q-pa-sm">
     <q-drawer
       v-model="openList"
       show-if-above
@@ -64,5 +64,6 @@ function logout() {
     window.location.reload()
   }, 200)
 }
+
 const openList = ref(false)
 </script>
