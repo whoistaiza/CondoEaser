@@ -1,7 +1,7 @@
 <template>
   <ContentSection title-align="center">
     <template #title>Lista de Moradores</template>
-    <SimpleTable :columns="columns" :rows="rows"/>
+    <SimpleTable :columns="columns" :rows="rows" />
   </ContentSection>
 </template>
 
@@ -42,7 +42,7 @@ const columns: ComputedRef<QTableColumn[]> = computed(() => {
       name: 'contato',
       align: 'center',
       sortable: true
-    },
+    }
   ]
 })
 

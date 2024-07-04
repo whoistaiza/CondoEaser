@@ -50,7 +50,7 @@ const routers = [
   { icon: 'group', name: 'lista de moradores', route: 'moradores' },
   { icon: 'location_on', name: 'agendador', route: 'agendador' },
   { icon: 'calendar_view_month', name: 'mural de recados', route: 'mural' },
-  { icon: 'paid', name: 'relatório de gastos', route: 'gastos' },
+  { icon: 'paid', name: 'Gerenciador financeiro', route: 'gastos' },
   { icon: 'mdi-cog', name: 'permissões', route: 'permissoes' }
 ]
 function changeRout(rout: string) {

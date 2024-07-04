@@ -4,7 +4,16 @@
       <q-input :model-value="item?.nome" name="Usuário" label="Usuário" class="col" dense disable />
     </div>
     <div class="row q-mt-md">
-      <q-select v-model="selectedPermissoes" option-label="descricao" name="Permissões" label="Permissões" class="col" dense multiple :options="selectPermissoes"/>
+      <q-select
+        v-model="selectedPermissoes"
+        option-label="descricao"
+        name="Permissões"
+        label="Permissões"
+        class="col"
+        dense
+        multiple
+        :options="selectPermissoes"
+      />
     </div>
 
     <div class="row justify-end q-mt-md">

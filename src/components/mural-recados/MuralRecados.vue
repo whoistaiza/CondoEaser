@@ -93,8 +93,8 @@ const getBgRecado = (recado: Recado): string => {
 }
 
 watchEffect(() => {
-  if(isNil(store.usuario?.id)) {
-    window.location.reload();
+  if (isNil(store.usuario?.id)) {
+    window.location.reload()
   }
 })
 </script>

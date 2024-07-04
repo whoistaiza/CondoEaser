@@ -1,6 +1,3 @@
 <template>
-    <Login/>
+  <Login />
 </template>
-
-
-

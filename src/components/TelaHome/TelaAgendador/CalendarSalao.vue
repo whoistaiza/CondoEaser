@@ -1,35 +1,35 @@
 <template>
   <div class="q-ma-md">
-      <ContentSection title-align="center">
-        <template #title>{{ formattedMonth }} </template>
-        <MonthNavigation @today="onToday" @prev="onPrev" @next="onNext" />
-        <div class="row justify-center font-custom">
-          <div class="text-h5 calendar-size text-uppercase">
-            <q-btn
-              label="Agendar Evento"
-              text-color="white"
-              color="orange"
-              @click="showCard = true"
-            />
-            <ModalAgendarAdd
-              :show-card="showCard"
-              @close="showCard = false"
-              @salva-agend="handleDates"
-            />
-            <q-calendar-month
-              ref="calendar"
-              v-model="selectedDate"
-              locale="pt-br"
-              :day-min-height="100"
-              class="cursor-pointer"
-            >
-              <template #day="{ scope: { timestamp } }">
-                <BadgeEvents :data="timestamp.date" />
-              </template>
-            </q-calendar-month>
-          </div>
+    <ContentSection title-align="center">
+      <template #title>{{ formattedMonth }} </template>
+      <MonthNavigation @today="onToday" @prev="onPrev" @next="onNext" />
+      <div class="row justify-center font-custom">
+        <div class="text-h5 calendar-size text-uppercase">
+          <q-btn
+            label="Agendar Evento"
+            text-color="white"
+            color="orange"
+            @click="showCard = true"
+          />
+          <ModalAgendarAdd
+            :show-card="showCard"
+            @close="showCard = false"
+            @salva-agend="handleDates"
+          />
+          <q-calendar-month
+            ref="calendar"
+            v-model="selectedDate"
+            locale="pt-br"
+            :day-min-height="100"
+            class="cursor-pointer"
+          >
+            <template #day="{ scope: { timestamp } }">
+              <BadgeEvents :data="timestamp.date" />
+            </template>
+          </q-calendar-month>
         </div>
-      </ContentSection>
+      </div>
+    </ContentSection>
   </div>
 </template>
 
@@ -46,8 +46,6 @@ const eventStorage = useEventStore()
 const selectedDate = ref(today())
 const instance = getCurrentInstance()
 const showCard = ref(false)
-
-
 
 function onToday() {
   if (instance && instance.refs && instance.refs.calendar) {
