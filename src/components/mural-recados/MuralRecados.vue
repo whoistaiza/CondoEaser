@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
-import { orderBy, isEmpty } from 'lodash-es'
+import { orderBy, isEmpty, isNil } from 'lodash-es'
 
 import { useMainStore } from '../../stores/user'
 import { Recado } from '../../stores'
@@ -91,6 +91,12 @@ const getSide = (recado: Recado): 'left' | 'right' | undefined => {
 const getBgRecado = (recado: Recado): string => {
   return recadoFromUserLogged(recado) ? 'primary' : 'secondary'
 }
+
+watchEffect(() => {
+  if(isNil(store.usuario?.id)) {
+    window.location.reload();
+  }
+})
 </script>
 
 <style scoped>

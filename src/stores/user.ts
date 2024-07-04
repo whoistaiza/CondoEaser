@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { find, maxBy, remove } from 'lodash-es'
 import { DateTime } from 'luxon'
 
+const router = useRouter()
 export interface Permissao {
   id: number
   descricao: string
@@ -20,6 +21,8 @@ export interface Usuario {
   nome: string
   foto: string
   admin: boolean
+  senha: string
+  email: string
 }
 
 export interface UsuarioPermissoes {
@@ -56,58 +59,42 @@ export const useMainStore = defineStore('main', () => {
     }
   ]
 
-  // const usuariosPermissoes: { usuarioId: number, permissoes: Permissao[] }[] = [
-  //   {
-  //     usuarioId: 1,
-  //     permissoes: []
-  //   },
-  //   {
-  //     usuarioId: 2,
-  //     permissoes: []
-  //   },
-  //   {
-  //     usuarioId: 3,
-  //     permissoes: []
-  //   },
-  //   {
-  //     usuarioId: 4,
-  //     permissoes: []
-  //   }
-  // ]
-
   const usuariosPermissoes: { usuarioId: number, permissoes: Permissao[] }[]  = JSON.parse(localStorage.getItem('usuariosPermissoes') || '[]')
 
-  const usuario: Usuario = {
-    id: 1,
-    nome: 'Taiza',
-    foto: 'https://cdn.quasar.dev/img/avatar1.jpg',
-    admin: false
-  }
+  const usuario: Usuario = JSON.parse(localStorage.getItem('usuario') || '{}')
 
   const usuarios: Usuario[] = [
     {
       id: 1,
       nome: 'Taiza',
       foto: 'https://cdn.quasar.dev/img/avatar1.jpg',
-      admin: true
+      admin: true,
+      email: 'taiza@email.com',
+      senha: '123456'
     },
     {
       id: 2,
       nome: 'Junior',
       foto: 'https://cdn.quasar.dev/img/avatar2.jpg',
-      admin: false
+      admin: false,
+      email: 'junior@email.com',
+      senha: '123456'
     },
     {
       id: 3,
       nome: 'Francis',
       foto: 'https://cdn.quasar.dev/img/avatar2.jpg',
-      admin: false
+      admin: false,
+      email: 'francis@email.com',
+      senha: '123456'
     },
     {
       id: 4,
       nome: 'André',
       foto: 'https://cdn.quasar.dev/img/avatar2.jpg',
-      admin: false
+      admin: false,
+      email: 'andre@email.com',
+      senha: '123456'
     }
   ]
 
@@ -138,15 +125,19 @@ export const useMainStore = defineStore('main', () => {
   }
 
   function alteraPermissoesUsuario(permissoes: Permissao[], usuarioId: number) {
-    // console.log({ permissoes, usuarioId })
     remove(usuariosPermissoes, { usuarioId })
     usuariosPermissoes.push({ usuarioId, permissoes })
-    // const usuario: Usuario = find(usuarios, { id: usuarioId }) as Usuario
-    // const newUsuario: Usuario = { ...usuario, permissoes }
-    // remove(usuarios, { id: usuarioId})
-    // usuarios.push(newUsuario)
     saveUsuariosPermissoesToLocalStorage()
   }
+
+  function login(usuarioLogado: Usuario) {
+    localStorage.setItem('usuario', JSON.stringify(usuarioLogado))
+  }
+
+  function logout() {
+    localStorage.setItem('usuario', JSON.stringify({}))
+  }
+
   return {
     permissoes,
     usuarios,
@@ -156,5 +147,7 @@ export const useMainStore = defineStore('main', () => {
     removeRecado,
     alteraPermissoesUsuario,
     usuariosPermissoes,
+    login,
+    logout
   }
 })

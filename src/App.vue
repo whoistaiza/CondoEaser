@@ -2,6 +2,9 @@
   <q-toolbar class="text-primary bg-primary z-top" v-if="showTabHeader">
     <q-btn flat round dense icon="menu" color="white" @click="openList = !openList" />
     <q-toolbar-title class="text-white"> Menu </q-toolbar-title>
+    <q-btn flat round dense icon="mdi-logout" color="white" @click="logout">
+      <q-tooltip>Sair</q-tooltip>
+    </q-btn>
   </q-toolbar>
   <q-layout class="q-py-md">
     <q-drawer
@@ -30,8 +33,11 @@
 </template>
 
 <script setup lang="ts">
+import { isNil } from 'lodash-es'
 import { useRoute } from 'vue-router'
+
 const currentRoute = useRoute()
+const store = useMainStore()
 
 const exceptionRoutes = ['/login']
 const router = useRouter()
@@ -49,5 +55,15 @@ const routers = [
 function changeRout(rout: string) {
   router.push(`/${rout}`)
 }
+
+function logout() {
+  store.logout()
+  router.push('/login')
+  setTimeout(() => {
+    window.location.reload()
+  }, 200)
+}
+
+
 const openList = ref(false)
 </script>

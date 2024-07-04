@@ -9,7 +9,7 @@
             <q-input v-model="form.email" label="Email" lazy-rules class="q-mt-lg" />
   
             <q-input
-              v-model="form.password"
+              v-model="form.senha"
               label="Senha"
               lazy-rules
               :type="passwordInputType"
@@ -33,35 +33,48 @@
     </div>
   </template>
   
-  <script setup lang="ts">
-  import { useRouter } from 'vue-router'
-  import { reactive, ref, computed } from 'vue'
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { reactive, ref, computed } from 'vue'
+import { find, isEmpty, isNil } from 'lodash-es'
+import { Usuario } from '../../stores'
   
-  const form = reactive({
-    email: 'juliano@dev.com',
-    password: 'hashed_password'
-  })
-  
-  const isPassword = ref(true)
-  const router = useRouter()
-  
-  const passwordInputType = computed(() => (isPassword.value ? 'password' : 'text'))
-  
-  const showPasswordIcon = computed(() => (isPassword.value ? 'visibility_off' : 'visibility'))
-  
-  function submit() {
-    router.push('/home')
+const form = reactive({
+  email: null,
+  senha: null
+})
+
+const store = useMainStore()
+
+const isPassword = ref(true)
+const router = useRouter()
+
+const passwordInputType = computed(() => (isPassword.value ? 'password' : 'text'))
+
+const showPasswordIcon = computed(() => (isPassword.value ? 'visibility_off' : 'visibility'))
+
+function submit() {
+  const { email, senha } = form
+  const usuario: Usuario | undefined = find(store.usuarios, { email, senha }) as Usuario | undefined
+
+  if(!isNil(usuario)) {
+    store.login(usuario)
+    notifyPositive('Login efetuado com sucesso!')
+    router.push('/mural')
+    return
   }
-  </script>
-  
-  <style scoped>
-  .bg {
-    background-image: url('/img/condoeaser.png');
-  }
-  
-  .card {
-    height: 25rem;
-    width: 40rem;
-  }
-  </style>
+  notifyNegative('Senha ou email inválido!')
+}
+</script>
+
+<style scoped>
+.bg {
+  background-image: url('/img/condoeaser.png');
+}
+
+.card {
+  height: 25rem;
+  width: 40rem;
+}
+</style>
   
