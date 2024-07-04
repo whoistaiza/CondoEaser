@@ -4,6 +4,16 @@ import { find, maxBy, remove } from 'lodash-es'
 import { DateTime } from 'luxon'
 
 const router = useRouter()
+
+export interface MovimentoBancario {
+  id: number
+  valor: number
+  tipo: 'DEPOSITO' | 'SAQUE'
+  descricao: string
+  usuario: Usuario
+  data: string
+}
+
 export interface Permissao {
   id: number
   descricao: string
@@ -31,6 +41,10 @@ export interface UsuarioPermissoes {
 }
 
 export const useMainStore = defineStore('main', () => {
+  const financeiro: MovimentoBancario[] = JSON.parse(
+    localStorage.getItem('financeiro') || '[]'
+  )
+
   const permissoes: Permissao[] = [
     {
       id: 1,
@@ -59,7 +73,9 @@ export const useMainStore = defineStore('main', () => {
     }
   ]
 
-  const usuariosPermissoes: { usuarioId: number, permissoes: Permissao[] }[]  = JSON.parse(localStorage.getItem('usuariosPermissoes') || '[]')
+  const usuariosPermissoes: { usuarioId: number; permissoes: Permissao[] }[] = JSON.parse(
+    localStorage.getItem('usuariosPermissoes') || '[]'
+  )
 
   const usuario: Usuario = JSON.parse(localStorage.getItem('usuario') || '{}')
 
@@ -104,6 +120,10 @@ export const useMainStore = defineStore('main', () => {
     localStorage.setItem('recados', JSON.stringify(recados))
   }
 
+  function saveFinanceiroToLocalStorage() {
+    localStorage.setItem('financeiro', JSON.stringify(financeiro))
+  }
+
   function saveUsuariosPermissoesToLocalStorage() {
     localStorage.setItem('usuariosPermissoes', JSON.stringify(usuariosPermissoes))
   }
@@ -122,6 +142,22 @@ export const useMainStore = defineStore('main', () => {
   function removeRecado(id: number) {
     remove(recados, { id })
     saveRecadosToLocalStorage()
+  }
+
+  function addFinanceiro({ valor, tipo, descricao }: { valor: number, tipo: 'DEPOSITO' | 'SAQUE', descricao: 'string'}) {
+    const lastMovimento = maxBy(financeiro, 'id')
+    const financeiroId = lastMovimento ? lastMovimento.id + 1 : 1
+    const data = DateTime.now().toFormat('dd/MM/yyyy')
+    const usuarioCreated = find(usuarios, { id: usuario.id }) as unknown as Usuario
+
+    financeiro.push({ id: financeiroId, data, usuario: usuarioCreated, valor, tipo, descricao })
+
+    saveFinanceiroToLocalStorage()
+  }
+
+  function removeFinanceiro(id: number) {
+    remove(financeiro, { id })
+    saveFinanceiroToLocalStorage()
   }
 
   function alteraPermissoesUsuario(permissoes: Permissao[], usuarioId: number) {
@@ -148,6 +184,9 @@ export const useMainStore = defineStore('main', () => {
     alteraPermissoesUsuario,
     usuariosPermissoes,
     login,
-    logout
+    logout,
+    addFinanceiro,
+    removeFinanceiro,
+    financeiro
   }
 })

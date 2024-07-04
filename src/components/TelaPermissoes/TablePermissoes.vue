@@ -19,21 +19,25 @@ import { Permissao } from '../../stores'
 
 const store = useMainStore()
 
-function buildItems(): { nome: string, permissoes: Permissao[], usuarioId: number }[] {
+function buildItems(): { nome: string; permissoes: Permissao[]; usuarioId: number }[] {
   return map(store.usuarios, (usuario) => {
     return {
       nome: usuario.nome,
       permissoes: find(store.usuariosPermissoes, { usuarioId: usuario.id })?.permissoes,
       usuarioId: usuario.id
     }
-  }) as { nome: string, permissoes: Permissao[], usuarioId: number }[]
+  }) as { nome: string; permissoes: Permissao[]; usuarioId: number }[]
 }
 
 const items = ref(buildItems())
 
-watch(store.usuariosPermissoes, (_) => {
-  items.value = buildItems()
-}, { deep: true })
+watch(
+  store.usuariosPermissoes,
+  (_) => {
+    items.value = buildItems()
+  },
+  { deep: true }
+)
 
 const columns: ComputedRef<QTableColumn[]> = computed(() => {
   return [

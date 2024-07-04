@@ -1,3 +1,3 @@
 <template>
-  <ListMoradores/>
+  <ListMoradores />
 </template>
