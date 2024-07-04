@@ -6,7 +6,7 @@
       <q-tooltip>Sair</q-tooltip>
     </q-btn>
   </q-toolbar>
-  <q-layout class="q-py-md">
+  <q-layout class="q-pb-md">
     <q-drawer
       v-model="openList"
       show-if-above
@@ -41,6 +41,7 @@ const store = useMainStore()
 
 const exceptionRoutes = ['/login']
 const router = useRouter()
+const route = useRoute()
 
 const showTabHeader = computed(() => {
   return !exceptionRoutes.some((route) => currentRoute.path.includes(route))
@@ -63,6 +64,12 @@ function logout() {
     window.location.reload()
   }, 200)
 }
+
+watchEffect(() => {
+  if(route.path === '/') {
+    router.push('/login')
+  }
+})
 
 
 const openList = ref(false)
